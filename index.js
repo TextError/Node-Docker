@@ -1,4 +1,3 @@
-require('dotenv').config({ path: __dirname+'/config/config.env' });
 const { PORT } = require("./config/keys");
 const express = require("express");
 
