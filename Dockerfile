@@ -6,4 +6,4 @@ COPY . ./
 EXPOSE 8080
 # ENV PORT 8080
 # EXPOSE $PORT
-CMD ["npm", "run", "dev"]
+CMD ["node", "index.js"]
