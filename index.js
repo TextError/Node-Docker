@@ -11,6 +11,8 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
+app.enable('trust proxy');
+
 app.use(session({
   store: new redisStore({ client: redisClient }),
   secret: SESSION_SECRET,
@@ -35,11 +37,11 @@ const connect = () => {
 
 connect();
 
-app.get('/', (req, res) => {
+app.get('api/', (req, res) => {
   res.send("<h2>Hi there!</h2>")
 });
 
-app.use("/posts", postRouter);
-app.use("/users", userRouter);
+app.use("/api/posts", postRouter);
+app.use("api//users", userRouter);
 
 app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
