@@ -1,11 +1,27 @@
-const { PORT, MONGO_URL } = require("./config/keys");
+const { PORT, MONGO_URL, REDIS_URL, REDIS_PORT, SESSION_SECRET } = require("./config/keys");
 const express = require("express");
 const mongoose = require("mongoose");
+const redis = require('redis');
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
+const redisClient = redis.createClient({ host: REDIS_URL, port: REDIS_PORT });
+
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
+app.use(session({
+  store: new redisStore({ client: redisClient }),
+  secret: SESSION_SECRET,
+  cookie: {
+    secure: false,
+    resave: false,
+    saveUninitialized: false,
+    httpOnly: true,
+    maxAge: 30000000
+  },
+}));
 app.use(express.json());
 
 const connect = () => {

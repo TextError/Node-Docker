@@ -12,4 +12,5 @@ services:
       - NODE_ENV=development
       - USER=user
       - PASSWORD=password
+      - SESSION_SECRET=SESSION_SECRET
     command: npm run dev

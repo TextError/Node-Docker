@@ -23,9 +23,13 @@ exports.login = async( req, res, next) => {
   try {
     const user = await User.findOne({ username });
     if(!user) return res.statu(404).json({ status: 'fail', message: 'User not Found!' });
+
     const isCorrect = await bcrypt.compare(password, user.password)
-    if(isCorrect) return res.status(200).json({ status: 'success' });
-    res.status(400).json({ status: 'fail', message: 'Incoret username or password!' })
+    if(!isCorrect) return res.status(400).json({ status: 'fail', message: 'Incoret username or password!' });
+
+    req.session.user = user;
+    res.status(200).json({ status: 'success' });
+
   } catch (error) {
     console.log(error);
     res.status(400).json({
