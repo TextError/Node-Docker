@@ -9,6 +9,7 @@ services:
 
   node-app:
     build: .
+    # image: dokerHubAcc/repoName
     # ports:
     #   - "3000-3001:3000"
     env_file:
