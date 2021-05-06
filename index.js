@@ -2,8 +2,11 @@ const { PORT, MONGO_URL } = require("./config/keys");
 const express = require("express");
 const mongoose = require("mongoose");
 const postRouter = require('./routes/postRoutes');
+const userRouter = require('./routes/userRoutes');
 
 const app = express();
+
+app.use(express.json());
 
 const connect = () => {
   mongoose.connect(MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
@@ -21,5 +24,6 @@ app.get('/', (req, res) => {
 });
 
 app.use("/posts", postRouter);
+app.use("/users", userRouter);
 
 app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
