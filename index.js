@@ -1,6 +1,7 @@
 const { PORT, MONGO_URL } = require("./config/keys");
 const express = require("express");
 const mongoose = require("mongoose");
+const postRouter = require('./routes/postRoutes');
 
 const app = express();
 
@@ -15,9 +16,10 @@ const connect = () => {
 
 connect();
 
-
 app.get('/', (req, res) => {
   res.send("<h2>Hi there!</h2>")
 });
+
+app.use("/posts", postRouter);
 
 app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
